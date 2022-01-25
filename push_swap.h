@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:48:50 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/01/23 12:32:22 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/01/24 19:19:25 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_info {
     int		second;
 	int		third;
     t_list  *count;
+    int     count_a;
     t_list *temp;
 }	t_info;
 
@@ -66,5 +67,7 @@ int     ft_if_sort(t_list *lst);
 int     ft_firtsort(t_info *i, int tete);
 void	ft_second_step(t_info *i, int tete);
 void	crea_lst_inter(t_info *i,t_list *lst, int count);
+int     ft_amoreb(t_info *i);
+void	ft_third_step(t_info *i, int tete);
 
 #endif

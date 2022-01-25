@@ -8,7 +8,8 @@ SRC = swap.c \
 main.c \
 crea_list.c \
 sort.c \
-help.c
+help.c \
+step.c
 
 OBJ = $(SRC:.c=.o)
 

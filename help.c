@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 10:55:06 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/01/23 10:57:28 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/01/23 17:29:18 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,28 @@ int	ft_if_sort(t_list *lst)
 			if(lst->content > lst->next->content)
 				return (1);
 			lst = lst->next;
+			s--;
+		}
+	}
+	return (0);
+}
+
+int	ft_amoreb(t_info *i)
+{
+	int	s;
+	t_list lst;
+
+	if (i->list_b)
+	{
+		lst = *i->list_b;
+		// if (ft_if_sort(i->list_a) == 1)
+		// 	return (1);
+		s = ft_lstsize(i->list_b);
+		while (s > 1)
+		{
+			if(i->list_a->content < lst.content)
+				return (1);
+			lst = *lst.next;
 			s--;
 		}
 	}
