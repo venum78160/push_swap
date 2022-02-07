@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 15:50:14 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/01/24 17:49:38 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/01/28 11:30:33 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ void	crea_lst(t_list **list,char *argv)
 	while (tab[++n] != NULL)
 	{
 		if (ft_deter_int(tab[n]) == 1)
-		{
-			printf("erreur : %s\n",tab[n]);
 			ft_erreur();
-		}
 		ft_lstadd_back(list, ft_lstnew(ft_atoi(tab[n])));
 	}
 }

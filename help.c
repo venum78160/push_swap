@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 10:55:06 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/01/23 17:29:18 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/05 18:57:16 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ int	find_med(t_list *list)
 		res = tab[ft_lstsize(list) / 2 + 1];
 	free(tab);
 	return (res);
+}
+
+void	find_dbl_med(t_info *i, t_list *list)
+{
+	int	*tab;
+
+	tab = crea_tabi(&list);
+	sort_tab(tab, ft_lstsize(list));
+	i->tier1 = tab[ft_lstsize(list) / 3 - 1];
+	i->tier2 = tab[ft_lstsize(list) / 3 * 2 - 1];
+	free(tab);
 }
 
 void	sort_tab(int *tab, int size)
@@ -99,22 +110,20 @@ int	ft_if_sort(t_list *lst)
 
 int	ft_amoreb(t_info *i)
 {
-	int	s;
 	t_list lst;
 
 	if (i->list_b)
 	{
 		lst = *i->list_b;
-		// if (ft_if_sort(i->list_a) == 1)
-		// 	return (1);
-		s = ft_lstsize(i->list_b);
-		while (s > 1)
+
+		while (lst.next != NULL)
 		{
 			if(i->list_a->content < lst.content)
 				return (1);
 			lst = *lst.next;
-			s--;
 		}
+		if(i->list_a->content < lst.content)
+			return (1);
 	}
 	return (0);
 }

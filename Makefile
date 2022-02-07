@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 NAME = push_swap
 
@@ -9,7 +9,8 @@ main.c \
 crea_list.c \
 sort.c \
 help.c \
-step.c
+step.c \
+lst_return.c
 
 OBJ = $(SRC:.c=.o)
 
