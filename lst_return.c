@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:36 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/02/01 21:41:39 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:02:28 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,50 +136,3 @@ void	print_lst_move(t_ret *list, char *a, char *b)
 	else
 		ft_putstr_fd(b, 1);
 }
-
-// void	lst_ra_rra(t_ret *list, int *ra, int *rra)
-// {
-// 	char	tag;
-// 	t_ret	*tete;
-
-// 	tete = list;
-// 	tag = list->tag;
-// 	while ((tag == tete->tag) && (tete->content == 4))
-// 	{
-// 		ra++;
-// 		tete = tete->next;
-// 	}
-// 	while ((tag == tete->tag) && (tete->content == 6))
-// 	{
-// 			rra++;
-// 		tete = tete->next;
-// 	}
-// }
-
-// void	lst_ra_rra_boucle(t_ret **list)
-// {
-// 	int	ra;
-// 	int	rra;
-
-// 	lst_ra_rra(*list, &ra, &rra);
-// 	if(rra == 0)
-// 		return;
-// 	while (ra + rra > 0)
-// 	{
-// 		if ((*list)->content == 4)
-// 		{
-// 			if (ra > 0)
-// 			{
-// 				(*list) = (*list)->next;
-// 				ra--;
-// 			}
-// 			else
-// 				print_lst_move(*list, "ra\n", "rb\n");
-// 		}
-// 		if ((*list)->content == 6 && rra > 0)
-// 		{
-// 			(*list) = (*list)->next;
-// 			rra--;
-// 		}
-// 	}
-// }

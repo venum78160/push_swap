@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:54:25 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/02/07 20:31:42 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:34:09 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,38 @@ void	print_tab(int *tab, int size)
 	int	n;
 
 	n = 0;
+	printf("tableau: ");
 	while (n < size)
 	{
-		printf("valeur du tableau = %i a n = %i\n", tab[n], n);
+		printf("%d ", tab[n]);
 		n++;
 	}
+	printf("\n");
+}
+
+void ft_bullshit(t_list* a, t_list* b, t_info *i)
+{
+	t_list* tmp;
+	
+	printf("PILE A: ");
+	tmp = a;
+	while (tmp) {
+		printf("%d ", tmp->content);
+		tmp = tmp->next;
+	}
+	printf("\nPILE B: ");
+	tmp = b;
+	while (tmp) {
+		printf("%d ", tmp->content);
+		tmp = tmp->next;
+	}
+	printf("\nCOUNT: ");
+	tmp = i->count;
+	while (tmp) {
+		printf("%d ", tmp->content);
+		tmp = tmp->next;
+	}
+	printf("\n\n");
 }
 
 void	ft_brain(t_info *i)
@@ -88,35 +115,49 @@ void	ft_brain(t_info *i)
 	{
 		if (i->first > 0)
 		{
+			// printf("FIRST | ETAT: %i\n", i->first);
 			ft_firtsort(i, tete->content);
 		}
 		else if(i->second > 0)
 		{
-			// printf("\nsecond\n");
-			// printf("liste count\n");
-			// print_list(i->count);
-			// printf("end count\n");
+			// printf("SECOND\n");
 			ft_second_step(i, tete->content);
 		}
 		else if(i->third > 0)
 		{
-			// printf("\nbefore step 3 begin\n");
-			// printf("liste count\n");
-			// print_list(i->count);
-			// printf("end count\n");
+			// printf("THIRD | count a = %d\n", make_count_a(i));
 			ft_third_step(i, tete->content);
 		}
-		// printf("here %i %i %i\n", i->first, i->second, i->third);
-		// printf("\nbefore swap tete\n");
 		if(ft_if_sort(i->list_a) == 1|| ft_lstsize(i->list_b) != 0)
 			swap_tete(i, &tete);
-		// printf("end2\n");
-		// printf("\nend swap tete\n");
-		// printf("tete boucle = %i\n\n", tete->content);
-		// printf("\nend boucle\n");
-		// printf("liste count\n");
-		// print_list(i->count);
-		// printf("end count\n");
+		// printf("MED: %d | TIER1 : %d | TIER2 : %d | LAST : %d | SIZE_A : %d\n", i->med, i->tier1, i->tier2, i->last, ft_lstsize(i->list_a));
+		// ft_bullshit(i->list_a, i->list_b, i);
+		// getchar();
+	}
+}
+
+void	free_count(t_info *i)
+{
+	if(ft_lstsize(i->count) > 0)
+	{
+		if(ft_lstmove_i(i->count, ft_lstsize(i->count)) == 0)
+		{
+			if (ft_lstsize(i->list_b) == 0)
+				i->count = NULL;
+			else
+				ft_lstmove(i->count, ft_lstsize(i->count) - 1)->next = NULL;
+		}
+		else if(i->count->content == 0)
+		{
+			if (ft_lstsize(i->list_b) == 0)
+				i->count = NULL;
+			else
+			{
+				i->temp2 = i->count->next;
+				free(i->count);
+				i->count = i->temp2;
+			}
+		}
 	}
 }
 
@@ -149,30 +190,22 @@ void	swap_tete(t_info *i, t_list **tete)
 			i->head = 0;
 			(*tete) = i->list_b;
 		}
+		lock_tete(i, tete);
 	}
-	// if(ft_if_sort(i->list_a) == 1|| ft_lstsize(i->list_b) != 0)
-	// {
-	// 	if(i->second > 0)
-	// 	{
-	// 		(*tete) = i->list_b;
-	// 		if (i->list_b->content > ft_lstmove_i(i->list_b, ft_lstsize(i->list_b)) || ft_lstsize(i->count) == 1)
-	// 		{
-	// 			printf("tete up\n");
-	// 			i->head = 0;
-	// 			(*tete) = i->list_b;
-	// 		}
-	// 		else
-	// 		{
-	// 			printf("tete down\n");
-	// 			i->head = 1;
-	// 			(*tete) = ft_lstmove(i->list_b, ft_lstsize(i->list_b));
-	// 		}
-	// 	}
-	// 	else if (i->third > 0)
-	// 	{
-	// 		(*tete) = i->list_a;
-	// 	}
-	// 	// printf("end tete = %i\n", (*tete)->content);
+}
+
+void	lock_tete(t_info *i, t_list **tete)
+{
+	if (i->lock == 1)
+	{
+		i->head = 0;
+		(*tete) = i->list_b;
+	}
+	else if (i->lock == 2)
+	{
+		i->head = 1;
+		(*tete) = ft_lstmove(i->list_b, ft_lstsize(i->list_b));
+	}
 }
 
 void	crea_lst_inter(t_info *i,t_list *lst, int count)
@@ -188,6 +221,23 @@ void	crea_lst_inter(t_info *i,t_list *lst, int count)
 	}
 }
 
+void	init(t_info *i)
+{
+	i->first = 1;
+	i->second = 1;
+	i->third = 1;
+	// i->argc = argc - 1;
+	i->list_a = NULL;
+	i->list_b = NULL;
+	i->count = NULL;
+	i->count_a = 0;
+	i->count2 = 0;
+	i->ret = NULL;
+	i->temp2 = NULL;
+	i->head = 0;
+	i->end_count = 0;
+}
+
 int	main(int argc, char *argv[])
 {
 	t_info i;
@@ -195,31 +245,48 @@ int	main(int argc, char *argv[])
 	
 	if (argc > 1)
 		{
-			i.first = 1;
-			i.second = 1;
-			i.third = 1;
-			i.argc = argc - 1;
-			i.list_a = NULL;
-			i.list_b = NULL;
-			i.count = NULL;
-			i.count_a = 0;
-			i.ret = NULL;
-			i.temp2 = NULL;
-			i.head = 0;
+			init(&i);
 			verif(&i.list_a, argv);
 			ft_brain(&i);
 			count = 10000;
 			while (--count > 0 && ft_lstsize_ret(i.ret) > 8)
 				lst_change_rt_under(&i.ret);
 			print_list_rt(i.ret);
-			// printf("Debrief\n\n");
-			// printf("liste A\n");
+			ft_lstclear(&i.list_a);
+			ft_lstclear(&i.list_b);
+			ft_lstclear_ret(&i.ret);
+			ft_lstclear(&i.temp2);
+			ft_lstclear(&i.temp);
+			// printf("list_a\n");
 			// print_list(i.list_a);
-			// printf("end+++\n");
+			// printf("listb\n");
+			// print_list(i.list_b);
+			// printf("ret\n");
+			// print_list_rt(i.ret);
+			// printf("listemp2\n");
+			// print_list(i.temp2);
+			// printf("temp\n");
+			// print_list(i.temp);
+			// printf("count\n");
+			// print_list(i.count);
 		}
 	else
 		return 1;
 	return 0;
+}
+
+void	ft_lstclear_ret(t_ret **lst)
+{
+	t_ret	*tmp;
+
+	if (!*lst)
+		return ;
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		(*lst) = tmp;
+	}
 }
 
 // 8358444 6474621 -15333794 -20027401 2418203 -1665143 5683210 6124284 -16291248 19294959 18440575 -2463636 -12235030 -17475888 -21370261 8134026 15710907 -15487818 16485266 14980475 17046058 6499558 10726979 -843465 -8653680 -17633583 9031792 -16866659 16267439 -11026476 -8198982 -4052984 3341807 -7852152 -6350215 -1347412 13145778 4491935 8608101 -16694330 -15635597 -1700828 8688319 -8824445 2344658 9765917 -12644774 -2762950 9943602 15172327

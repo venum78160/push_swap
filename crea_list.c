@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 15:50:14 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/01/28 11:30:33 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:36:14 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ int	ft_deter_int( const char*theString)
 	return (0);
 }
 
+void ft_free_tab(char **tab)
+{
+	int i;
+
+	i = -1;
+	while(tab[++i])
+		free(tab[i]);
+	free(tab);
+}
+
 void	crea_lst(t_list **list,char *argv)
 {
 	char	**tab;
@@ -54,24 +64,25 @@ void	crea_lst(t_list **list,char *argv)
 			ft_erreur();
 		ft_lstadd_back(list, ft_lstnew(ft_atoi(tab[n])));
 	}
+	ft_free_tab(tab);
 }
 
-char	**crea_tabs(t_list **list)
-{
-	t_list	*tete;
-	char	**tab;
-	int		count;
+// char	**crea_tabs(t_list **list)
+// {
+// 	t_list	*tete;
+// 	char	**tab;
+// 	int		count;
 	
-	count = -1;
-	tab = malloc(sizeof(char *) * ft_lstsize(*list) + 1);
-	tete = *list;
-    while (++count < ft_lstsize(*list))
-    {
-		tab[count] = ft_itoa(tete->content);
-        tete = tete->next;
-    }
-	return (tab);
-}
+// 	count = -1;
+// 	tab = malloc(sizeof(char *) * ft_lstsize(*list) + 1);
+// 	tete = *list;
+//     while (++count < ft_lstsize(*list))
+//     {
+// 		tab[count] = ft_itoa(tete->content);
+//         tete = tete->next;
+//     }
+// 	return (tab);
+// }
 
 int	*crea_tabi(t_list **list)
 {

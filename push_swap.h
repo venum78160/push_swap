@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 18:48:50 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/02/07 19:53:33 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:48:05 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,13 @@ typedef struct s_info {
 	int		third;
     t_list  *count;
     int     count_a;
+    int     count2;
     t_list  *temp;
     t_list  *temp2;
     int     head;
     t_ret   *ret;
+    int     end_count;
+    int		lock;
 }	t_info;
 
 //fonction
@@ -59,10 +62,10 @@ void    ft_sa(t_info *i, t_list **list, char tag);
 void    ft_ra(t_info *i, t_list **list, char tag);
 void    ft_rra(t_info *i, t_list **list, char tag);
 void    ft_pa(t_info *i, t_list **list_a, t_list **list_b, char tag);
-char	**crea_tabs(t_list **list);
+// char	**crea_tabs(t_list **list);
 int     *crea_tabi(t_list **list);
 void	sort_tab(int *tab, int size);
-int	    find_med(t_list *list);
+int     find_med(t_list *list, t_info *i);
 int		find_dup(int *tab, int size);
 int     ft_deter_int( const char *theString);
 void	verif(t_list **list,char **argv);
@@ -90,13 +93,19 @@ int		ft_lstsize_ret(t_ret *lst);
 void	ft_ss_diff_tag(t_ret **list, int t, int content);
 void	print_list_rt(t_ret *list);
 void	find_dbl_med(t_info *i, t_list *list);
-void	sort_dbl_med(t_info *i, int tete, int *count);
+void	sort_dbl_med(t_info *i, int tete, int *count, int *step);
 void	swap_tete(t_info *i, t_list **tete);
 void	declar_step_2_up(t_info *i);
 void	declar_step_2_down(t_info *i);
 void	sort_step_2_up(t_info *i, int *count, int tete);
 void	sort_step_2_down(t_info *i, int *count, int tete);
 int     add_content_lst(t_list *list);
-
+void	declar_step_3(t_info *i);
+void	last_1(t_info *i, int *count1, int *count_pa, int *step);
+void	free_count(t_info *i);
+void	lock_tete(t_info *i, t_list **tete);
+int     make_count_a(t_info *i);
+void	ft_lstclear_ret(t_ret **lst);
+void	init(t_info *i);
 
 #endif

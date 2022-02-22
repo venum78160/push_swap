@@ -6,23 +6,33 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 10:55:06 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/02/05 18:57:16 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:14:29 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_med(t_list *list)
+int	find_med(t_list *list, t_info *i)
 {
 	int	*tab;
 	int res;
 
+	// printf("Mediane \n");
 	tab = crea_tabi(&list);
 	sort_tab(tab, ft_lstsize(list));
+	// print_tab(tab, ft_lstsize(list));
 	if (ft_lstsize(list) % 2 == 0)
 		res = tab[ft_lstsize(list) / 2];
 	else
 		res = tab[ft_lstsize(list) / 2 + 1];
+	if (ft_lstsize(list) == 5 || ft_lstsize(list) == 4)
+		res = tab[2];
+	if (ft_lstsize(list) == 4 && i->first == 0 && i->second == 1)
+		res = tab[1];
+	if (ft_lstsize(list) == 4 && i->first == 0 && i->second == 0)
+		res = tab[1];
+	if (ft_lstsize(list) == 4 && i->first == 1)
+		res = tab[1];
 	free(tab);
 	return (res);
 }
@@ -126,4 +136,25 @@ int	ft_amoreb(t_info *i)
 			return (1);
 	}
 	return (0);
+}
+
+int	make_count_a(t_info *i)
+{
+	t_list	tete;
+	int		count;
+	int		max;
+
+	count = 0;
+	max = -2147483648;
+	tete = *i->list_a;
+	while (tete.next != NULL)
+	{
+		if(ft_if_sort(&tete) == 0 && tete.content > max)
+			return (count);
+		if (tete.content > max)
+			max = tete.content;
+		count++;
+		tete = *tete.next;
+	}
+	return (count);
 }

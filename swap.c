@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 16:25:54 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/01/31 14:33:03 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/21 15:24:50 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void    ft_rra(t_info *i, t_list **list, char tag)
     t_list	*tete;
     int count;
 
+    if (ft_lstsize(*list) == 1)
+        return;
     count = 0;
     tete = *list;
     while (count < ft_lstsize(*list) - 2)
