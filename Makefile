@@ -9,7 +9,13 @@ main.c \
 crea_list.c \
 sort.c \
 help.c \
+help_2.c \
 step.c \
+second_step.c \
+chg_lst.c \
+step_3.c \
+print_and_exit.c \
+print_and_exit_2.c \
 lst_return.c
 
 OBJ = $(SRC:.c=.o)

@@ -6,13 +6,13 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 15:50:14 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/02/22 16:36:14 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/23 11:51:08 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_deter_int( const char*theString)
+int	ft_deter_int(const char*theString, int max)
 {
 	int					i;
 	long				num;
@@ -36,68 +36,51 @@ int	ft_deter_int( const char*theString)
 			return (1);
 		num = num * 10 + neg * (theString[i++] - '0');
 	}
-	if ( ft_isdigit(theString[i]) == 404 || num < -2147483648 || num > 2147483647)
-			return (1);
+	if (ft_isdigit(theString[i]) == 404 || num < -2147483648 || num > max)
+		return (1);
 	return (0);
 }
 
-void ft_free_tab(char **tab)
+void	ft_free_tab(char **tab)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(tab[++i])
+	while (tab[++i])
 		free(tab[i]);
 	free(tab);
 }
 
-void	crea_lst(t_list **list,char *argv)
+void	crea_lst(t_list **list, char *argv)
 {
 	char	**tab;
-	int	n;
+	int		n;
 
 	tab = ft_split(argv, ' ');
 	n = -1;
 	while (tab[++n] != NULL)
 	{
-		if (ft_deter_int(tab[n]) == 1)
+		if (ft_deter_int(tab[n], 2147483647) == 1)
 			ft_erreur();
 		ft_lstadd_back(list, ft_lstnew(ft_atoi(tab[n])));
 	}
 	ft_free_tab(tab);
 }
 
-// char	**crea_tabs(t_list **list)
-// {
-// 	t_list	*tete;
-// 	char	**tab;
-// 	int		count;
-	
-// 	count = -1;
-// 	tab = malloc(sizeof(char *) * ft_lstsize(*list) + 1);
-// 	tete = *list;
-//     while (++count < ft_lstsize(*list))
-//     {
-// 		tab[count] = ft_itoa(tete->content);
-//         tete = tete->next;
-//     }
-// 	return (tab);
-// }
-
 int	*crea_tabi(t_list **list)
 {
 	t_list	*tete;
-	int	*tab;
+	int		*tab;
 	int		count;
-	
+
 	count = -1;
-	tab = malloc(sizeof(int) * ft_lstsize(*list) + 1);
+	tab = malloc(4 * ft_lstsize(*list) + 4);
 	tete = *list;
-    while (++count < ft_lstsize(*list))
-    {
+	while (++count < ft_lstsize(*list))
+	{
 		tab[count] = (tete->content);
-        tete = tete->next;
-    }
+		tete = tete->next;
+	}
 	tab[count] = '\0';
 	return (tab);
 }

@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 15:22:36 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/02/22 15:02:28 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:17:16 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	print_list_rt(t_ret *list)
 		{
 			if (list->content == 4)
 				print_lst_move(list, "ra\n", "rb\n");
-            if (list->content == 1)
+			if (list->content == 1)
 				print_lst_move(list, "sa\n", "sb\n");
-            if (list->content == 3)
+			if (list->content == 3)
 				print_lst_move(list, "pa\n", "pb\n");
-            if (list->content == 6)
+			if (list->content == 6)
 				print_lst_move(list, "rra\n", "rrb\n");
 			if (list->content == 2)
 				ft_putstr_fd("ss\n", 1);
@@ -35,19 +35,6 @@ void	print_list_rt(t_ret *list)
 			list = list->next;
 		}
 	}
-}
-
-int	ft_lstsize_ret(t_ret *lst)
-{
-	int	s;
-
-	s = 0;
-	while (lst)
-	{
-		lst = lst->next;
-		s++;
-	}
-	return (s);
 }
 
 void	lst_change_rt_under(t_ret **list)
@@ -76,11 +63,11 @@ void	lst_change_rt_under(t_ret **list)
 
 void	ft_ra_rra_same_tag(t_ret **list, int t)
 {
-	char tag;
+	char	tag;
 	t_ret	*temp;
 
 	tag = (*list)->next->tag;
-	if((*list)->next->next->content == t)
+	if ((*list)->next->next->content == t)
 	{
 		if (tag == (*list)->next->next->tag)
 		{
@@ -94,11 +81,11 @@ void	ft_ra_rra_same_tag(t_ret **list, int t)
 
 void	ft_ra_rra_diff_tag(t_ret **list, int t)
 {
-	char tag;
+	char	tag;
 	t_ret	*temp;
 
 	tag = (*list)->next->tag;
-	if((*list)->next->next->content == t)
+	if ((*list)->next->next->content == t)
 	{
 		if (tag != (*list)->next->next->tag)
 		{
@@ -112,11 +99,11 @@ void	ft_ra_rra_diff_tag(t_ret **list, int t)
 
 void	ft_ss_diff_tag(t_ret **list, int t, int content)
 {
-	char tag;
+	char	tag;
 	t_ret	*temp;
 
 	tag = (*list)->next->tag;
-	if((*list)->next->next->content == t)
+	if ((*list)->next->next->content == t)
 	{
 		if (tag != (*list)->next->next->tag)
 		{
@@ -127,12 +114,4 @@ void	ft_ss_diff_tag(t_ret **list, int t, int content)
 			(*list)->next->next = temp;
 		}
 	}
-}
-
-void	print_lst_move(t_ret *list, char *a, char *b)
-{
-	if (list->tag == 'a')
-		ft_putstr_fd(a, 1);
-	else
-		ft_putstr_fd(b, 1);
 }
